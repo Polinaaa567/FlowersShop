@@ -1,0 +1,16 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: #f3f1f1;
+}
+
+tr:not(:last-child) td {
+  border-bottom: 1px solid #ddd;
+}
