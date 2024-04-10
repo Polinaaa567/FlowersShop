@@ -1,6 +1,7 @@
 package local.arch.infrastructure.out.storage;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -78,6 +79,10 @@ public class PsqlDBJPA implements IStorage {
         query.setParameter("login", login);
         List<EOrders2> orders = query.getResultList();
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        for (EOrders2 o : orders) {
+            Logger.getLogger("мьлвьылвмьыв").info("" + o.getDateComplete());
+        }
         String jsonResult = "";
         try {
             jsonResult = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(orders);
@@ -182,5 +187,4 @@ public class PsqlDBJPA implements IStorage {
         }
         return jsonResult;
     }
-
 }
