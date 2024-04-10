@@ -144,3 +144,50 @@ input {
   font-family: Poppins;
   box-sizing: border-box;
 }
+
+nav {
+  display:inline-block;
+  margin: 0 30px;
+}
+
+.one ul {
+  padding: 1em 0;
+  background: #fcf8df;
+}
+
+.one a {
+  padding: 1em;
+  background: rgba(177, 152, 145, .3);
+  border-right: 1px solid #b19891;
+  color: #695753;
+}
+
+.one a:hover {background: #b19891;}
+
+ul {
+  list-style: none; 
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  font-family: 'Lora', serif;
+  transition: .5s linear;
+}
+i {
+  margin-right: 10px;
+}
+
+li {
+  display: inline;
+}
+
+.one li {
+  display: inline-block; 
+}
+
+.navigate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

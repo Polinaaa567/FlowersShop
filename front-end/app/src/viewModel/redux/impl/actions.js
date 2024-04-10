@@ -30,6 +30,12 @@ export const ACTIONS_CREATORS = {
     console.log(a);
     return a;
   },
+  // REGISTRATION: (value) => {
+//     return {
+//       type: ACTIONS_TYPES.REGISTRATION,
+//       payload: { registration: value }
+//   };
+// },
   REGISTRATION: (value) => {
     const a = action();
     a.type = ACTIONS_TYPES.REGISTRATION;

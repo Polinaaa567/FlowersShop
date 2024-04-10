@@ -2,8 +2,8 @@ import { ApiServiceFactory } from "../../../transport/api/ApiServiceFactory";
 import { ACTIONS_CREATORS } from "./actions.js";
 
 // Done
-function async_update() {
-  console.log("я здесь async_update");
+function ItemsInShop() {
+  console.log("я здесь ItemsInShop");
   return (dispatch) => {
     (async () => {
       const apiService = ApiServiceFactory.createInstance();
@@ -13,7 +13,7 @@ function async_update() {
   };
 }
 // Done
-function async_Token(login, password) {
+function getTokenAuthentication(login, password) {
   console.log("kva");
   return (dispatch) => {
     (async () => {
@@ -24,7 +24,7 @@ function async_Token(login, password) {
   };
 }
 // Done
-function async_Registration(login, password, firstName, lastName) {
+function getTokenRegistration(login, password, firstName, lastName) {
   return (dispatch) => {
     (async () => {
       const apiService = ApiServiceFactory.createInstance();
@@ -39,7 +39,7 @@ function async_Registration(login, password, firstName, lastName) {
   };
 }
 // DONE
-function async_getPersons() {
+function getPersonsLogin() {
   return (dispatch) => {
     (async () => {
       const apiService = ApiServiceFactory.createInstance();
@@ -50,7 +50,7 @@ function async_getPersons() {
 }
 
 // Done
-function async_getResult(price, result, symbol) {
+function updateResult(price, result, symbol) {
   return (dispatch) => {
     (async () => {
       const apiService = ApiServiceFactory.createInstance();
@@ -61,7 +61,7 @@ function async_getResult(price, result, symbol) {
 }
 
 // Done
-function async_NewOrder(login, flowers, cost) {
+function newOrder(login, flowers, cost) {
   return (dispatch) => {
     (async () => {
       const apiService = ApiServiceFactory.createInstance();
@@ -73,10 +73,10 @@ function async_NewOrder(login, flowers, cost) {
 }
 
 export {
-  async_NewOrder,
-  async_Registration,
-  async_Token,
-  async_getPersons,
-  async_getResult,
-  async_update,
+  ItemsInShop,
+  getPersonsLogin,
+  getTokenAuthentication,
+  getTokenRegistration,
+  newOrder,
+  updateResult,
 };

@@ -21,9 +21,20 @@ function LabelInfo() {
   };
   return (
     <>
-      <span> Всего предметов в корзине: {basket.length}</span> <br />
-      <span> Общая сумма заказа: {price} ₽</span> <br />
-      <input type="datetime-local" onChange={hundlerDateTime}></input> <br />
+      <span className="AllItemsInShoppingCart">
+        Всего предметов в корзине: {basket.length}
+      </span>
+      <br />
+      <span className="AllItemsInShoppingCart">
+        Общая сумма заказа: {price} ₽
+      </span>
+      <br />
+      <input
+        className="DateTime"
+        type="datetime-local"
+        onChange={hundlerDateTime}
+      ></input>
+      <br />
     </>
   );
 }
@@ -103,8 +114,10 @@ function PageShoppingCart() {
   return (
     <>
       <TableData />
-      <LabelInfo />
-      <ButtonNewOrder />
+      <form className="labelInfoOrder">
+        <LabelInfo />
+        <ButtonNewOrder />
+      </form>
     </>
   );
 }

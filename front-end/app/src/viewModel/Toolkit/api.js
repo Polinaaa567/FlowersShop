@@ -99,6 +99,7 @@ const useExitClearUser = () => {
   const dispatch = useDispatch();
   return () => dispatch(exitClearUser());
 };
+
 const useActionAddItemsInShoppingCart = () => {
   const dispatch = useDispatch();
   return (value) => dispatch(addItemsInShoppingCart(value));

@@ -7,77 +7,67 @@ import {
 import { ACTIONS_CREATORS } from "./impl/actions.js";
 
 import {
-  async_NewOrder,
-  async_Registration,
-  async_Token,
-  async_getPersons,
-  async_getResult,
-  async_update,
+  ItemsInShop,
+  getPersonsLogin,
+  getTokenAuthentication,
+  getTokenRegistration,
+  newOrder,
+  updateResult,
 } from "./impl/async.js";
 import store from "./impl/store.js";
 
-function buildProvider() {
+const buildProvider = () => {
   return (props) => {
     return <ReduxProvider store={store}>{props.children}</ReduxProvider>;
   };
-}
+};
 
 // ---------------------------------
 // Action Dispatch
 
-function useActionUPDATE_LOGIN() {
+function useActionSetNewLogin() {
   const dispatch = useDispatch();
   return (value) => dispatch(ACTIONS_CREATORS.UPDATE_LOGIN(value));
 }
 
-function useActionUPDATE_PASSWORD() {
+function useActionSetNewPassword() {
   const dispatch = useDispatch();
   return (value) => dispatch(ACTIONS_CREATORS.UPDATE_PASSWORD(value));
 }
 
-function useActionUPDATE_PASSWORD2() {
+function useActionSetNewPassword2() {
   const dispatch = useDispatch();
   return (value) => dispatch(ACTIONS_CREATORS.UPDATE_PASSWORD2(value));
 }
 
-function useActionUPDATE_FIRSTNAME() {
+function useActionSetFirstName() {
   const dispatch = useDispatch();
   return (value) => dispatch(ACTIONS_CREATORS.UPDATE_FIRSTNAME(value));
 }
 
-function useActionUPDATE_LASTNAME() {
+function useActionSetLastName() {
   const dispatch = useDispatch();
   return (value) => dispatch(ACTIONS_CREATORS.UPDATE_LASTNAME(value));
 }
 
-function useActionREGISTRATION() {
+function useActionsetRegistration() {
   const dispatch = useDispatch();
   return (value) => dispatch(ACTIONS_CREATORS.REGISTRATION(value));
 }
 
-function useActionUPDATE_USERS() {
+function useActionsetUser() {
   const dispatch = useDispatch();
   return (value) => dispatch(ACTIONS_CREATORS.UPDATE_USERS(value));
 }
 
-function useActionUPDATE_TOKEN() {
-  const dispatch = useDispatch();
-  return (value) => dispatch(ACTIONS_CREATORS.UPDATE_TOKEN(value));
-}
-
-function useActionADD_BASKET() {
+function useActionAddItemsInShoppingCart() {
   const dispatch = useDispatch();
   return (value) => dispatch(ACTIONS_CREATORS.ADD_BASKET(value));
 }
 
-function useActionREMOVE_ITEMS() {
+function useActionRemoveItemsInShoppingCart() {
   const dispatch = useDispatch();
   return (value) => dispatch(ACTIONS_CREATORS.REMOVE_ITEMS(value));
-}
-
-function useActionUPDATE_RESULT() {
-  const dispatch = useDispatch();
-  return (value) => dispatch(ACTIONS_CREATORS.UPDATE_RESULT(value));
 }
 
 function useClearAllItemsInBasket() {
@@ -86,50 +76,50 @@ function useClearAllItemsInBasket() {
 }
 // *********************************
 
-function useDataListener() {
+function useGetItemsListener() {
   return useSelector((state) => state.value);
 }
 
-function useDataDispatcher() {
+function useItemDispatch() {
   const dispatch = useDispatch();
-  return () => dispatch(async_update());
+  return () => dispatch(ItemsInShop());
 }
 
 // *********************************
 
-function useLoginDispatcher() {
+function useAuthenticationDispatch() {
   const dispatch = useDispatch();
 
   const login = useSelector((state) => state.login);
   const password = useSelector((state) => state.password);
-  return () => dispatch(async_Token(login, password));
+  return () => dispatch(getTokenAuthentication(login, password));
 }
 
-function useTokenListener() {
+function useGetTokenListener() {
   return useSelector((state) => state.token);
 }
 
 // *********************************
 
-function useRegistrationDispatcher() {
+function useGetTokenRegistrationDispatch() {
   const dispatch = useDispatch();
   const login = useSelector((state) => state.login);
   const password = useSelector((state) => state.password);
   const firstName = useSelector((state) => state.firstName);
   const lastName = useSelector((state) => state.lastName);
   return () =>
-    dispatch(async_Registration(login, password, firstName, lastName));
+    dispatch(getTokenRegistration(login, password, firstName, lastName));
 }
 
-function useRegistrationListener() {
+function useGetRegistrationListener() {
   return useSelector((state) => state.registration);
 }
 
 // ************************
 
-function usePersonsDispatcher() {
+function usePersonsLoginDispatch() {
   const dispatch = useDispatch();
-  return () => dispatch(async_getPersons());
+  return () => dispatch(getPersonsLogin());
 }
 
 function usePersonsListener() {
@@ -162,7 +152,7 @@ function useGetUserListener() {
   return useSelector((state) => state.user);
 }
 
-function useGetBasketItems() {
+function useGetShoppingCartListener() {
   return useSelector((state) => state.basket);
 }
 
@@ -171,10 +161,10 @@ function useGetBasketItems() {
 function useGetResultDispatch() {
   const dispatch = useDispatch();
   const result = useSelector((state) => state.result);
-  return (price, symbol) => dispatch(async_getResult(price, result, symbol));
+  return (price, symbol) => dispatch(updateResult(price, result, symbol));
 }
 
-function useResultListener() {
+function useGetResultListener() {
   return useSelector((state) => state.result);
 }
 
@@ -183,45 +173,42 @@ function useResultListener() {
 function useSendNewOrder() {
   const dispatch = useDispatch();
   const login = useGetUserListener();
-  const ItemInBasket = useGetBasketItems();
+  const ItemInBasket = useGetShoppingCartListener();
   const ids = ItemInBasket.map((item) => item.flowerID).join(",");
-  const cost = useResultListener();
-  return () => dispatch(async_NewOrder(login, ids, cost));
+  const cost = useGetResultListener();
+  return () => dispatch(newOrder(login, ids, cost));
 }
 
 export {
   buildProvider,
   // Action
-  useActionADD_BASKET,
-  useActionREGISTRATION,
-  useActionREMOVE_ITEMS,
-  useActionUPDATE_FIRSTNAME,
-  useActionUPDATE_LASTNAME,
-  useActionUPDATE_LOGIN,
-  useActionUPDATE_PASSWORD,
-  useActionUPDATE_PASSWORD2,
-  useActionUPDATE_RESULT,
-  useActionUPDATE_TOKEN,
-  useActionUPDATE_USERS,
+  useActionAddItemsInShoppingCart,
+  useActionRemoveItemsInShoppingCart,
+  useActionSetFirstName,
+  useActionSetLastName,
+  useActionSetNewLogin,
+  useActionSetNewPassword,
+  useActionSetNewPassword2,
+  useActionsetRegistration,
+  useActionsetUser,
+  useAuthenticationDispatch,
   useClearAllItemsInBasket,
-
-  // -----------
-  useDataDispatcher,
-  useDataListener,
-  useGetBasketItems,
   useGetFirstNameListener,
+  useGetItemsListener,
   useGetLastNameListener,
   useGetLoginListener,
   useGetPassword2Listener,
   useGetPasswordListener,
+  useGetRegistrationListener,
   useGetResultDispatch,
+  useGetResultListener,
+  useGetShoppingCartListener,
+  useGetTokenListener,
+  useGetTokenRegistrationDispatch,
   useGetUserListener,
-  useLoginDispatcher,
-  usePersonsDispatcher,
+  // -----------
+  useItemDispatch,
   usePersonsListener,
-  useRegistrationDispatcher,
-  useRegistrationListener,
-  useResultListener,
+  usePersonsLoginDispatch,
   useSendNewOrder,
-  useTokenListener,
 };

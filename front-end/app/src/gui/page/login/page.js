@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 // import {
-//   useActionUPDATE_LOGIN,
-//   useActionUPDATE_PASSWORD,
-//   useActionUPDATE_USERS,
+//   useActionSetNewLogin,
+//   useActionSetNewPassword,
+//   useActionsetUser,
 //   useGetLoginListener,
-//   useLoginDispatcher,
-//   useTokenListener,
+//   useAuthenticationDispatch,
+//   useGetTokenListener,
 // } from "../../../viewModel/redux/api.js";
 
 import {

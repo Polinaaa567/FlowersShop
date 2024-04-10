@@ -1,13 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import {
-//   useActionUPDATE_LOGIN,
-//   useActionUPDATE_RESULT,
-//   useActionUPDATE_TOKEN,
-//   useActionUPDATE_USERS,
+//   useActionSetNewLogin,
+//   useActionsetUser,
 //   useClearAllItemsInBasket,
 //   useGetUserListener,
-//   useResultListener,
+//   useGetResultListener,
 // } from "../../viewModel/redux/api";
 
 import {
@@ -33,37 +31,56 @@ const Navbar = () => {
 
   if (userLogin === "") {
     return (
-      <div>
-        <li>
-          <Link to="/Products">Главная</Link>
-        </li>
-        <li>
-          <Link to="/Login">Войти</Link>
-        </li>
-        {/* <li>
-          <Link onClick={handler}>Корзина</Link>
-        </li> */}
-      </div>
+      <>
+        <div className="navigate">
+          <li>
+            <a href="/">
+              <img width="100px" src="./images/icon3.png"></img>
+            </a>
+          </li>
+          <nav className="one">
+            <ul>
+              <li>
+                <a href="/Products">Главная</a>
+              </li>
+              <li>
+                <a href="/Login">Войти</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </>
     );
   } else {
     return (
-      <div>
-        <li>
-          <Link to="/Products">Главная</Link>
-        </li>
-        <li>
-          <label>
-            <Link to="/ShoppingCart">Корзина</Link> ({cost} ₽)
-          </label>
-        </li>
-        <li>
-          <Link to="/Profile">Профиль</Link>
-        </li>
-        <li>
-          <Link onClick={handlerExit}>Выйти</Link>
-        </li>
-        <span>Привет, {userLogin}!</span>
-      </div>
+      <>
+        <div className="navigate">
+          <li>
+            <a href="/">
+              <img width="100px" src="./images/icon3.png"></img>
+            </a>
+          </li>
+          <nav className="one">
+            <ul>
+              <li>
+                <Link to="/Products">Главная</Link>
+              </li>
+              <li>
+                <label>
+                  <Link to="/ShoppingCart">Корзина ({cost} ₽)</Link>
+                </label>
+              </li>
+              <li>
+                <Link to="/Profile">Профиль</Link>
+              </li>
+              <li>
+                <Link onClick={handlerExit}>Выйти</Link>
+              </li>
+              <span> Привет, {userLogin}! </span>
+            </ul>
+          </nav>
+        </div>
+      </>
     );
   }
 };

@@ -2,6 +2,7 @@ import React from "react";
 
 import "./TableData.css";
 
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
   useActionAddItemsInShoppingCart,
   useGetItemsListener,
@@ -35,9 +36,11 @@ function TableData() {
             <img src={item.image_path} alt={item.title} height={200} />
             <div>{item.title}</div>
             <div>Состав: {item.description}</div>
-            <div>Цена: {item.price} ₽</div><br/>
+            <div>Цена: {item.price} ₽</div>
+            <br />
             <button onClick={() => hundleButtonPrice(item.price, item)}>
               Добавить в заказ
+              <AddShoppingCartIcon className="AddShoppingCartIcon" fontSize="very small" />
             </button>
           </td>
         ))}
@@ -48,9 +51,7 @@ function TableData() {
   return (
     <>
       <table>
-        <tbody>
-          {rows}
-        </tbody>
+        <tbody>{rows}</tbody>
       </table>
     </>
   );

@@ -24,15 +24,13 @@ const ProfileData = () => {
       </li>
     </ul>
   );
-}
-
-
+};
 
 function TableData() {
   const data = useGetHistoryOrderListener();
 
   const groupedOrders = data.reduce((acc, order) => {
-    const date = order.date_complete;
+    const date = order.dateComplete;
     if (!acc[date]) {
       acc[date] = [];
     }
@@ -41,14 +39,18 @@ function TableData() {
     return acc;
   }, {});
 
+  const sortedGroupedOrders = Object.entries(groupedOrders).sort(
+    ([dateA], [dateB]) => Date.parse(dateA) - Date.parse(dateB)
+  );
+
   return (
     <>
       <span>
         <h1>Все заказы</h1>
       </span>
-      {Object.entries(groupedOrders).map(([date, orders]) => (
+      {sortedGroupedOrders.map(([date, orders]) => (
         <div key={date}>
-          <h2>Date: {date} (UTC+00:00)</h2>
+          <h2>Date: {date}</h2>
           {orders.map((order) => (
             <div key={order.orderID}>
               <div>
@@ -64,6 +66,12 @@ function TableData() {
               </div>
             </div>
           ))}
+          <div>
+            <label>
+              Общая стоимость заказов за эту дату:{" "}
+              {orders.reduce((acc, order) => order.cost, 0)}
+            </label>
+          </div>
         </div>
       ))}
     </>
