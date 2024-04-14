@@ -27,13 +27,7 @@ public class Controller {
 	public Response service(String userJson) { 
 		UserToken user = jsonb.fromJson(userJson, UserToken.class);
 		String check = service.checkUser(user.getLogin(), user.getPassword());
-		ObjectMapper objectMapper = new ObjectMapper();
-		String jsonResult = "";
-		try {
-			jsonResult = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(check);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return Response.ok(jsonResult).build();
+
+		return Response.ok(check).build();
 	}
 }

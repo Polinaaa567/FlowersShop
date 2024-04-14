@@ -1,8 +1,5 @@
 package local.arch.infrastructure.in.controller.rest.endpoint.registration;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
@@ -26,16 +23,9 @@ public class Controller {
 	public Response service(String userRegJson) {
 
 		UserRegistration userReg = jsonb.fromJson(userRegJson, UserRegistration.class);
-		String check = service.newUser(userReg.getLogin(), userReg.getPassword(), userReg.getfirstName(), userReg.getlastName());
+		String check = service.newUser(userReg.getLogin(), userReg.getPassword(), userReg.getfirstName(),
+				userReg.getlastName());
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		String jsonResult = "";
-		try {
-			jsonResult = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(check);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-
-		return Response.ok(jsonResult).build();
+		return Response.ok(check).build();
 	}
 }

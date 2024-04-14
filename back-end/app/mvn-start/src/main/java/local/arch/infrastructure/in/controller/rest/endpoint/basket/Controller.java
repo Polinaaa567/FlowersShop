@@ -23,7 +23,6 @@ public class Controller {
             @QueryParam("symbol") String symbol) {
 
         double History = service.order(result, price, symbol);
-
         return Response.ok(History).build();
     }
 }

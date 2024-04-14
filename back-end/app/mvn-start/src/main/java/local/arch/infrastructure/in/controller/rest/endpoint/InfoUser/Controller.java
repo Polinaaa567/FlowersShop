@@ -7,6 +7,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 import local.arch.application.IService;
+import local.arch.application.dto.Persons;
 import local.arch.infrastructure.builder.Built;
 
 @Path("/InfoUser")
@@ -18,8 +19,7 @@ public class Controller {
     @GET
     @Produces("application/json")
     public Response service(@QueryParam("login") String login) {
-
-        String History = service.getUserInfo(login);
+        Persons History = service.getUserInfo(login);
 
         return Response.ok(History).build();
     }

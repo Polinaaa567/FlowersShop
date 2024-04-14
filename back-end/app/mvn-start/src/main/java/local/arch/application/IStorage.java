@@ -1,19 +1,24 @@
 package local.arch.application;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import local.arch.application.dto.Flowers;
+import local.arch.application.dto.Orders;
+import local.arch.application.dto.Persons;
 
 public interface IStorage {
 	public boolean findUser(String login, String password);
 
 	public boolean RegistrationUser(String login, String password, String first_name, String last_name);
 
-	public String getFlowers();
+	public List<Flowers> getFlowers(); // массив данных, методы и классы сущности
 
-	public String getPersons();
+	public List<Persons> getPersons();
 
 	public boolean SaveNewOrder(String login, String flowers, Integer cost, Timestamp DateCompleted);
 
-	public String HistoryOrder(String login);
+	public List<Orders> HistoryOrder(String login);
 
-	public String UserInfo(String login);
+	public Persons UserInfo(String login);
 }

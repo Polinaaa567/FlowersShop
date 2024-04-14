@@ -1,10 +1,14 @@
 package local.arch.application.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import local.arch.application.IService;
 import local.arch.application.IStorage;
 import local.arch.application.IStorageUsing;
+import local.arch.application.dto.Flowers;
+import local.arch.application.dto.Orders;
+import local.arch.application.dto.Persons;
 import local.arch.domain.Factory;
 import local.arch.domain.ICalculator;
 import local.arch.infrastructure.token.ITokenKey;
@@ -35,12 +39,12 @@ public class Service implements IService, IStorageUsing, TokenManagerInjection {
   }
 
   @Override
-  public String listFlowers() {
+  public List<Flowers> listFlowers() {
     return storage.getFlowers();
   }
 
   @Override
-  public String listPersons() {
+  public List<Persons> listPersons() {
     return storage.getPersons();
   }
 
@@ -49,7 +53,7 @@ public class Service implements IService, IStorageUsing, TokenManagerInjection {
     return result;
   }
 
-  public String listOrder(String login) {
+  public List<Orders> listOrder(String login) {
     return storage.HistoryOrder(login);
   }
 
@@ -64,7 +68,7 @@ public class Service implements IService, IStorageUsing, TokenManagerInjection {
   }
 
   @Override
-  public String getUserInfo(String login) {
+  public Persons getUserInfo(String login) {
     return storage.UserInfo(login);
   }
 }
