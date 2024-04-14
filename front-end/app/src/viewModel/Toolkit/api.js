@@ -200,8 +200,8 @@ const usePersonsLoginDispatch = () => {
 
 const useGetTokenRegistrationDispatch = () => {
   const dispatch = useDispatch();
-  const login = useGetLoginListener();
-  const password = useGetPasswordListener();
+  const login = useSelector((state) => state.user.login);
+  const password = useSelector((state) => state.user.password);
   const firstName = useSelector((state) => state.user.firstName);
   const lastName = useSelector((state) => state.user.lastName);
   
@@ -222,23 +222,23 @@ const useGetResultDispatch = () => {
 
 const useSendNewOrderDispatch = () => {
   const dispatch = useDispatch();
-  const login = useGetUserListener();
+  const login = useSelector((state) => state.user.user);
   const ItemInBasket = useSelector((state) => state.basket.shoppingCart);
   const flowers = ItemInBasket.map((item) => item.flowerID).join(",");
-  const cost = useGetResultListener();
+  const cost = useSelector((state) => state.basket.result);
   const date = useSelector((state) => state.basket.dateTime);
   return () => dispatch(newOrder({ login, flowers, cost, date }));
 };
 
 const useGetHistoryOrderDispatch = () => {
   const dispatch = useDispatch();
-  const login = useGetUserListener();
+  const login = useSelector((state) => state.user.user);
   return () => dispatch(historyOrder({ login }));
 };
 
 const useGetPersonsInfo = () => {
   const dispatch = useDispatch();
-  const login = useGetUserListener();
+  const login = useSelector((state) => state.user.user);
   return () => dispatch(getPersonsInfo({ login }));
 };
 // // -----------------------------------------------

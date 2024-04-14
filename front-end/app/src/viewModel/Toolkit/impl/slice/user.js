@@ -60,6 +60,8 @@ const userSlice = createSlice({
     exitClearUser: (state) => {
       state.user = "";
       state.token = "";
+      state.lastName = "";
+      state.firstName = "";
     },
     setNewLogin: (state, action) => {
       state.login = action.payload;
