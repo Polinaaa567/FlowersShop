@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getHistoryOrderWS } from "../../../../transport/WS/WebSocket";
 import { ApiServiceFactory } from "../../../../transport/api/ApiServiceFactory";
 
 const initialState = {
@@ -7,7 +8,7 @@ const initialState = {
   shoppingCart: [],
   history: [],
   dateTime: "",
-  date: ''
+  date: "",
 };
 
 const ItemsInShop = createAsyncThunk("basket/ItemsInShop", async () => {
@@ -72,7 +73,10 @@ const basketSlice = createSlice({
     clearShoppingCart: (state) => {
       state.shoppingCart = [];
       state.result = 0;
-      state.date = '';
+      state.date = "";
+    },
+    setHistory: (state, action) => {
+      state.history = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -86,13 +90,40 @@ const basketSlice = createSlice({
       .addCase(newOrder.fulfilled, (state) => {
         state.shoppingCart = [];
         state.result = 0;
-        state.date = '';
+        state.date = "";
       })
       .addCase(historyOrder.fulfilled, (state, action) => {
         state.history = action.payload;
       });
   },
 });
+
+export const WSInfo = (token) => async (dispatch) => {
+  getHistoryOrderWS.onopen = (event) => {
+    console.log("WS counter was opened: " + event);
+    getHistoryOrderWS.send(token);
+  };
+  getHistoryOrderWS.onmessage = (event) => {
+    const data = event.data;
+    const infoFlowers = data.map((item) => {
+      return {
+        created_at: item.created_at,
+        cost: item.cost,
+        flowers: {
+          title: item.flowers.title,
+          image_path: item.flowers.image_path,
+          description: item.flowers.description,
+          price: item.flowers.price,
+          flowerID: item.flowers.flowerID,
+        },
+        orderID: item.orderID,
+        personLogin: item.personLogin,
+        dateComplete: item.dateComplete,
+      };
+    });
+    dispatch(basketSlice.actions.setHistory(infoFlowers));
+  };
+};
 
 export const {
   exitClearBasket,

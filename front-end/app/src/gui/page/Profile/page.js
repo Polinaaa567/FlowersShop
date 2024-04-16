@@ -1,12 +1,19 @@
 import React from "react";
 import "./Profile.css";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import {
   useGetHistoryOrderDispatch,
   useGetHistoryOrderListener,
   useGetPersonsInfo,
   useGetPersonsInfoListener,
+  useGetTokenListener,
+
 } from "../../../viewModel/Toolkit/api";
+
+import { WSInfo } from "../../../viewModel/Toolkit/impl/slice/basket";
+
 
 const ProfileData = () => {
   const infoPersons = useGetPersonsInfoListener();
@@ -81,6 +88,11 @@ function TableData() {
 function PageProfile() {
   const dispatch = useGetHistoryOrderDispatch();
   dispatch();
+  const dispatch2 = useDispatch();
+  const tokenListener = useGetTokenListener();
+  useEffect(() => {
+    dispatch2(WSInfo(tokenListener));
+  }, []);
   const info = useGetPersonsInfo();
   info();
   return (

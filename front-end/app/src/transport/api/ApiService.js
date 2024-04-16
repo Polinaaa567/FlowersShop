@@ -1,7 +1,7 @@
 export class ApiService {
   async getUser(login, password) {
     const response = await fetch(
-      `http://localhost:8080/Shop/api/Authentication`,
+      `http://localhost:8080/Shop/api/Identification/Authentication`,
       {
         method: "POST",
         body: JSON.stringify({ login: login, password: password }),
@@ -103,7 +103,7 @@ export class ApiService {
   async getRegistration(login, password, firstName, lastName) {
     console.log(firstName + " " + lastName);
     const response = await fetch(
-      `http://localhost:8080/Shop/api/Registration`,
+      `http://localhost:8080/Shop/api/Identification/Registration`,
       {
         method: "POST",
         body: JSON.stringify({
