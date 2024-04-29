@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ApiServiceFactory } from "../../../../transport/api/ApiServiceFactory";
+// import { ApiServiceFactory } from "../../../../transport/api/ApiServiceFactory";
 
+import { getUser, getPersons, getInfoUser, getRegistration } from "../../../../transport/api/ApiService";
 const initialState = {
   login: "",
   password: "",
@@ -17,23 +18,24 @@ const initialState = {
 const getTokenAuthentication = createAsyncThunk(
   "user/getToken",
   async ({ login, password }) => {
-    const apiService = ApiServiceFactory.createInstance();
-    const data = await apiService.getUser(login, password);
+    console.log("csacv = "+ login);
+    const data = await getUser(login, password);
+    console.log("xnj pf = "+data);
     return data;
   }
 );
 
 const getPersonsLogin = createAsyncThunk("user/getPersonsLogin", async () => {
-  const apiService = ApiServiceFactory.createInstance();
-  const data = await apiService.getPersons();
+  // const apiService = ApiServiceFactory.createInstance();
+  const data = await getPersons();
   return data;
 });
 
 const getPersonsInfo = createAsyncThunk(
   "user/getPersonsInfo",
   async ({ login }) => {
-    const apiService = ApiServiceFactory.createInstance();
-    const data = await apiService.getInfoUser(login);
+    // const apiService = ApiServiceFactory.createInstance();
+    const data = await getInfoUser(login);
     return data;
   }
 );
@@ -41,8 +43,8 @@ const getPersonsInfo = createAsyncThunk(
 const getTokenRegistration = createAsyncThunk(
   "user/getTokenRegistration",
   async ({ login, password, firstName, lastName }) => {
-    const apiService = ApiServiceFactory.createInstance();
-    const data = await apiService.getRegistration(
+    // const apiService = ApiServiceFactory.createInstance();
+    const data = await getRegistration(
       login,
       password,
       firstName,

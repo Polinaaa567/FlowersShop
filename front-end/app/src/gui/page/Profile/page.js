@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
+import { getHistoryOrderHttp } from "../../../transport/api/ApiService";
+// import
 import {
-  useGetHistoryOrderDispatch,
+  // useGetHistoryOrderDispatch,
   useGetHistoryOrderListener,
+  // useGetLoginListener,
+  useGetUserListener,
   useGetPersonsInfo,
   useGetPersonsInfoListener,
   useGetTokenListener,
-
 } from "../../../viewModel/Toolkit/api";
 
 import { WSInfo } from "../../../viewModel/Toolkit/impl/slice/basket";
-
 
 const ProfileData = () => {
   const infoPersons = useGetPersonsInfoListener();
@@ -34,6 +35,13 @@ const ProfileData = () => {
 };
 
 function TableData() {
+  // const dispatch2 = useDispatch();
+  // const tokenListener = useSelector((state) => state.user.token);
+
+  // useEffect(() => {
+  //   dispatch2(WSInfo(tokenListener));
+  // }, []);
+  
   const data = useGetHistoryOrderListener();
 
   const groupedOrders = data.reduce((acc, order) => {
@@ -86,13 +94,18 @@ function TableData() {
 }
 
 function PageProfile() {
-  const dispatch = useGetHistoryOrderDispatch();
-  dispatch();
+
   const dispatch2 = useDispatch();
-  const tokenListener = useGetTokenListener();
+  const tokenListener = useSelector((state) => state.user.token);
+
+  const login = useSelector((state) => state.user.user);
+  console.log("I in Profile PAge = " + tokenListener);
+  getHistoryOrderHttp({login, tokenListener});
+  
   useEffect(() => {
     dispatch2(WSInfo(tokenListener));
   }, []);
+
   const info = useGetPersonsInfo();
   info();
   return (

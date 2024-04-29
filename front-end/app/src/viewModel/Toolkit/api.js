@@ -10,7 +10,7 @@ import {
   addItemsInShoppingCart,
   clearShoppingCart,
   exitClearBasket,
-  historyOrder,
+  // historyOrder,
   newOrder,
   removeItemsInShoppingCart,
   setDateTime,
@@ -189,6 +189,7 @@ const useAuthenticationDispatch = () => {
   const dispatch = useDispatch();
 
   const login = useSelector((state) => state.user.login);
+  console.log("cdscds " + login);
   const password = useSelector((state) => state.user.password);
   return () => dispatch(getTokenAuthentication({ login, password }));
 };
@@ -230,11 +231,12 @@ const useSendNewOrderDispatch = () => {
   return () => dispatch(newOrder({ login, flowers, cost, date }));
 };
 
-const useGetHistoryOrderDispatch = () => {
-  const dispatch = useDispatch();
-  const login = useSelector((state) => state.user.user);
-  return () => dispatch(historyOrder({ login }));
-};
+// const useGetHistoryOrderDispatch = () => {
+//   const dispatch = useDispatch();
+//   const login = useSelector((state) => state.user.user);
+//   const token = useSelector((state) => state.user.token);
+//   return () => dispatch(historyOrder({ login, token }));
+// };
 
 const useGetPersonsInfo = () => {
   const dispatch = useDispatch();
@@ -264,7 +266,7 @@ export {
   useExitClearUser,
   useGetDateTimeListener,
   useGetFirstNameListener,
-  useGetHistoryOrderDispatch,
+  // useGetHistoryOrderDispatch,
   useGetHistoryOrderListener,
   useGetItemsListener,
   useGetLastNameListener,

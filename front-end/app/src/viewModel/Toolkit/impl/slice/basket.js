@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getHistoryOrderWS } from "../../../../transport/WS/WebSocket";
-import { ApiServiceFactory } from "../../../../transport/api/ApiServiceFactory";
+// import { ApiServiceFactory } from "../../../../transport/api/ApiServiceFactory";
 
+import { getInfoFlowers, getResult, getNewOrders } from "../../../../transport/api/ApiService";
 const initialState = {
   items: [],
   result: 0,
@@ -12,8 +13,8 @@ const initialState = {
 };
 
 const ItemsInShop = createAsyncThunk("basket/ItemsInShop", async () => {
-  const apiService = ApiServiceFactory.createInstance();
-  const data = await apiService.getInfoFlowers();
+  // const apiService = ApiServiceFactory.createInstance();
+  const data = await getInfoFlowers();
 
   return data;
 });
@@ -22,8 +23,8 @@ const updateResult = createAsyncThunk(
   "basket/updateResult",
   async ({ price, result, symbol }) => {
     console.log(price, result, symbol);
-    const apiService = ApiServiceFactory.createInstance();
-    const data = await apiService.getResult(price, result, symbol);
+    // const apiService = ApiServiceFactory.createInstance();
+    const data = await getResult(price, result, symbol);
     return data;
   }
 );
@@ -31,20 +32,20 @@ const updateResult = createAsyncThunk(
 const newOrder = createAsyncThunk(
   "basket/newOrder",
   async ({ login, flowers, cost, date }) => {
-    const apiService = ApiServiceFactory.createInstance();
-    const data = await apiService.getNewOrders(login, flowers, cost, date);
+    // const apiService = ApiServiceFactory.createInstance();
+    const data = getNewOrders(login, flowers, cost, date);
     return data;
   }
 );
 
-const historyOrder = createAsyncThunk(
-  "basket/historyOrder",
-  async ({ login }) => {
-    const apiService = ApiServiceFactory.createInstance();
-    const data = await apiService.getHistoryOrder(login);
-    return data;
-  }
-);
+// const historyOrder = createAsyncThunk(
+//   "basket/historyOrder",
+//   async ({ login, token }) => {
+//     const apiService = ApiServiceFactory.createInstance();
+//     const data = await apiService.getHistoryOrder(login, token);
+//     return data;
+//   }
+// );
 
 const basketSlice = createSlice({
   name: "basket",
@@ -91,21 +92,26 @@ const basketSlice = createSlice({
         state.shoppingCart = [];
         state.result = 0;
         state.date = "";
-      })
-      .addCase(historyOrder.fulfilled, (state, action) => {
-        state.history = action.payload;
       });
+    // .addCase(historyOrder.fulfilled, (state, action) => {
+    //   state.history = action.payload;
+    // });
   },
 });
 
 export const WSInfo = (token) => async (dispatch) => {
-  getHistoryOrderWS.onopen = (event) => {
+  console.log("захожу ли я");
+  let ws = await getHistoryOrderWS();
+
+  ws.onopen = (event) => {
     console.log("WS counter was opened: " + event);
-    getHistoryOrderWS.send(token);
+    ws.send(token);
   };
-  getHistoryOrderWS.onmessage = (event) => {
+
+  ws.onmessage = (event) => {
     const data = event.data;
-    const infoFlowers = data.map((item) => {
+    console.log(data);
+    const infoFlowers = JSON.parse(data).map((item) => {
       return {
         created_at: item.created_at,
         cost: item.cost,
@@ -133,6 +139,11 @@ export const {
   setDateTime,
 } = basketSlice.actions;
 
-export { ItemsInShop, historyOrder, newOrder, updateResult };
+export {
+  ItemsInShop,
+  // historyOrder,
+  newOrder,
+  updateResult,
+};
 
 export default basketSlice.reducer;
