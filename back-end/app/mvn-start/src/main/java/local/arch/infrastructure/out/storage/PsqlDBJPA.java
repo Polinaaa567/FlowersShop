@@ -7,16 +7,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jakarta.annotation.Resource;
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import jakarta.transaction.UserTransaction;
-import local.arch.application.IStorage;
+import local.arch.application.api.IStorage;
 import local.arch.application.dto.Flowers;
 import local.arch.application.dto.Orders;
 import local.arch.application.dto.Persons;
+import local.arch.infrastructure.builder.Produce;
 import local.arch.infrastructure.out.storage.model.EFlowers;
 import local.arch.infrastructure.out.storage.model.EOrders2;
 import local.arch.infrastructure.out.storage.model.EPersons;
@@ -24,6 +26,8 @@ import local.arch.utils.FlowersStruct;
 import local.arch.utils.OrdersStruct;
 import local.arch.utils.UserStruct;
 
+@Produce
+@Named
 public class PsqlDBJPA implements IStorage {
 
     @Resource

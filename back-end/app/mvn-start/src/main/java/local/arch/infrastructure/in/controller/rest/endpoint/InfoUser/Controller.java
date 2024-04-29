@@ -6,7 +6,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
-import local.arch.application.IService;
+import local.arch.application.api.IService;
 import local.arch.application.dto.Persons;
 import local.arch.infrastructure.builder.Built;
 

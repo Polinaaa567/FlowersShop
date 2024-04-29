@@ -1,11 +1,11 @@
-package local.arch.infrastructure.in.controller.rest.endpoint.registration;
+package local.arch.infrastructure.in.controller.rest.endpoint.authentication;
 
 public class UserRegistration {
     private String login;
     private String password;
     private String lastName;
     private String firstName;
-    
+
     public String getLogin() {
         return this.login;
     }
@@ -33,6 +33,7 @@ public class UserRegistration {
     public String getfirstName() {
         return this.firstName;
     }
+
     public void setfirstName(String firstName) {
         this.firstName = firstName;
     }

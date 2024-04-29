@@ -1,5 +1,6 @@
 package local.arch.application;
 
+import local.arch.application.api.IService;
 import local.arch.application.service.Service;
 
 public class Factory {

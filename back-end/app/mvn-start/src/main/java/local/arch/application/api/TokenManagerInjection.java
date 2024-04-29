@@ -1,4 +1,4 @@
-package local.arch.application.service;
+package local.arch.application.api;
 
 import local.arch.infrastructure.token.ITokenKey;
 

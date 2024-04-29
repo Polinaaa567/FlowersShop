@@ -2,10 +2,14 @@ package local.arch.application.service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.logging.Logger;
 
-import local.arch.application.IService;
-import local.arch.application.IStorage;
-import local.arch.application.IStorageUsing;
+import local.arch.application.api.Executable;
+import local.arch.application.api.IService;
+import local.arch.application.api.IStorage;
+import local.arch.application.api.IStorageUsing;
+import local.arch.application.api.TokenManagerInjection;
+import local.arch.application.api.Updatable;
 import local.arch.application.dto.Flowers;
 import local.arch.application.dto.Orders;
 import local.arch.application.dto.Persons;
@@ -17,6 +21,37 @@ public class Service implements IService, IStorageUsing, TokenManagerInjection {
 
   ITokenKey usedManager;
   IStorage storage;
+
+  private Executable executor;
+  private Updatable updater;
+
+  @Override
+  public void setExecutor(Executable executor) {
+    this.executor = executor;
+  }
+
+  @Override
+  public void setUpdater(Updatable updater) {
+    this.updater = updater;
+  }
+
+  @Override
+  public boolean listOrder(String login, String token) {
+    Logger.getLogger("Service ИНФА 100%").info("В начале метода");
+
+    executor.execute(() -> {
+      try {
+        Logger.getLogger("Service ИНФА 100%").info("Ошибка есть нет?");
+        
+        Thread.sleep(2000);
+      } catch (Exception e) {}
+      List<Orders> hListOrders = storage.HistoryOrder(login);
+      Logger.getLogger("execute").info("" + hListOrders);
+      updater.updateStateHistoryOrder(hListOrders, token);
+    });
+
+    return true;
+  }
 
   @Override
   public double order(double result, double number, String symbol) {
@@ -53,9 +88,9 @@ public class Service implements IService, IStorageUsing, TokenManagerInjection {
     return result;
   }
 
-  public List<Orders> listOrder(String login) {
-    return storage.HistoryOrder(login);
-  }
+  // public List<Orders> listOrder(String login) {
+  // return storage.HistoryOrder(login);
+  // }
 
   @Override
   public void useStorage(IStorage storage) {

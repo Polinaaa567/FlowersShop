@@ -2,7 +2,7 @@ package local.arch.infrastructure.token;
 
 import java.util.Map;
 
-import local.arch.application.IStorage;
+import local.arch.application.api.IStorage;
 
 public interface ITokenKey {
     public String generateToken(String login, String passwd);
@@ -12,4 +12,6 @@ public interface ITokenKey {
     public void useStorage(IStorage storage);
 
     public boolean validateToken(String token);
+
+    public boolean validate(String token);
 }

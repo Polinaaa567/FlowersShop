@@ -1,4 +1,4 @@
-package local.arch.application;
+package local.arch.application.api;
 
 import java.sql.Timestamp;
 import java.util.List;
